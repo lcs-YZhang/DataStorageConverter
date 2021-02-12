@@ -8,15 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    private var name: String = "Steven Zhang"
+    @State private var name: String = ""
+    
+    @State private var feeling: String = ""
     
     private var greeting: String {
-        return "Hello, \(name)"
+        return "Hello, \(name), you are \(feeling)"
     }
     
     var body: some View {
-        Text(greeting)
-            .padding()
+       
+        Form {
+            TextField("Enter yur name.", text: $name)
+            
+            Picker("Mood", selection: $feeling) {
+                Text("😀").tag("Happy")
+                Text("🙂").tag("Fine")
+                Text("😭").tag("Sad")
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            Text(greeting)
+                .padding()
+        }
     }
 }
 
